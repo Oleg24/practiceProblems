@@ -27,10 +27,32 @@
 
 */
 
+/*
+  sorting takes O(n*log*n)
+
+  time complexity: O(n log n)
+
+  sort the input based on startTime
+  set the timeRange to the first item in the input
+
+  iterate over the input array
+
+    if the item we are iterating over's startime is after the end of our current timeRange endTime
+      that means there is no overlap
+      push the timeRange to the results array
+      update the time range to the item we are currently looking at
+
+    else if the item we are iterating over's startime is between the timeRange startime and endTime
+      that means there is overlap
+      and we need to update the end time to that items end time
+
+   push the last item to the results array
+   return the results array
+*/
+
 function condenseMeetingTimes (input) {
   var results = []
   input = input.sort(function (a, b) { return a.startTime > b.startTime})
-  console.log('input', input)
   var timeRange = {
     startTime: input[0].startTime,
     endTime: input[0].endTime
@@ -38,7 +60,6 @@ function condenseMeetingTimes (input) {
   for (var i = 1; i < input.length; i++) {
     var currentTime = input[i]
     if (currentTime.startTime > timeRange.endTime) {
-      console.log(timeRange)
       results.push(timeRange)
       timeRange.startTime = (function () {
         return input[i].startTime
@@ -46,7 +67,7 @@ function condenseMeetingTimes (input) {
       timeRange.endTime = (function () {
         return input[i].endTime
       })(i)
-    } else {
+    } else if (!(currentTime.endTime < timeRange.endTime)) {
       timeRange.endTime = (function () {
         return input[i].endTime
       })(i)
