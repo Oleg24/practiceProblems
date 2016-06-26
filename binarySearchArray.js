@@ -1,3 +1,10 @@
+/*
+  binary search
+
+  time complexity: logn
+
+*/
+
 var doSearch = function(array, targetValue) {
   var min = 0;
   var max = array.length - 1;
