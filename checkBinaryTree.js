@@ -67,3 +67,19 @@ function bstChecker(treeRoot) {
     // (at this point we have checked all nodes)
     return true;
 }
+
+bstCheckerRecursive(treeRoot, lowerBound, upperBound) => {
+    let lowerBound = lowerBound || -Infinity,
+        upperBound = upperBound || Infinity;
+
+        if(!treeRoot)return true;
+    
+
+        if(treeRoot.value > upperBound || treeRoot.value < lowerBound){
+            return false;
+        }
+        return bstCheckerRecursive(treeRoot.left, lowerBound, treeRoot.value) &&
+            bstCheckerRecursive(treeRoot.right, treeRoot.value, upperBound);
+}
+
+
